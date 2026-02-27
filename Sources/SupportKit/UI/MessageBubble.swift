@@ -38,11 +38,18 @@ struct MessageBubble: View {
         }
     }
 
-    private var bubbleBackground: Color {
+    private var bubbleBackground: some ShapeStyle {
         if message.isError {
-            return Color.red.opacity(0.2)
+            return AnyShapeStyle(Color.red.opacity(0.2))
         }
-        return isUser ? Color.accentColor : Color.gray.opacity(0.2)
+        if isUser {
+            return AnyShapeStyle(Color.accentColor)
+        }
+        #if canImport(UIKit)
+        return AnyShapeStyle(Color(.secondarySystemBackground))
+        #else
+        return AnyShapeStyle(Color.gray.opacity(0.2))
+        #endif
     }
 }
 

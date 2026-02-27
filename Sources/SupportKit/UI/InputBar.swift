@@ -27,7 +27,11 @@ struct InputBar: View {
         }
         .padding(.horizontal)
         .padding(.vertical, 8)
-        .background(Color(white: 1.0).opacity(0.95))
+        #if canImport(UIKit)
+        .background(Color(.systemBackground).opacity(0.95))
+        #else
+        .background(.background.opacity(0.95))
+        #endif
         .overlay(alignment: .top) {
             Divider()
         }

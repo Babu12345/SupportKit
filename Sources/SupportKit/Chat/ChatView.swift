@@ -51,7 +51,11 @@ public struct ChatView: View {
             )
             .focused($isInputFocused)
         }
-        .background(Color.white)
+        #if canImport(UIKit)
+        .background(Color(.systemBackground))
+        #else
+        .background(.background)
+        #endif
         .onAppear {
             if !hasConsented {
                 showConsentSheet = true
@@ -120,7 +124,11 @@ struct ChatHeader: View {
             }
         }
         .padding()
-        .background(Color.white)
+        #if canImport(UIKit)
+        .background(Color(.systemBackground))
+        #else
+        .background(.background)
+        #endif
         .overlay(alignment: .bottom) {
             Divider()
         }
@@ -144,7 +152,11 @@ struct TypingIndicator: View {
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
+            #if canImport(UIKit)
+            .background(Color(.secondarySystemBackground))
+            #else
             .background(Color.gray.opacity(0.2))
+            #endif
             .clipShape(RoundedRectangle(cornerRadius: 18))
 
             Spacer()
