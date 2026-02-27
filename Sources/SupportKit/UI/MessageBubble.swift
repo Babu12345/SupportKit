@@ -8,12 +8,16 @@ struct MessageBubble: View {
         message.role == .user
     }
 
+    private var markdownContent: AttributedString {
+        (try? AttributedString(markdown: message.content, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace))) ?? AttributedString(message.content)
+    }
+
     var body: some View {
         HStack {
             if isUser { Spacer(minLength: 60) }
 
             VStack(alignment: isUser ? .trailing : .leading, spacing: 4) {
-                Text(message.content)
+                Text(isUser ? AttributedString(message.content) : markdownContent)
                     .padding(.horizontal, 16)
                     .padding(.vertical, 10)
                     .background(bubbleBackground)
