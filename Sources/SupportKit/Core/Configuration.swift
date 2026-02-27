@@ -26,7 +26,7 @@ public struct Configuration {
     ///   - preferOnDevice: Use Apple Intelligence when available (default: true)
     public init(
         apiKey: String,
-        baseURL: URL = URL(string: "https://appsupportsdk-production.up.railway.app")!,
+        baseURL: URL = URL(string: "https://api.appsupportsdk.com")!,
         theme: Theme = .automatic,
         preferOnDevice: Bool = true,
         escalation: EscalationConfig = .default

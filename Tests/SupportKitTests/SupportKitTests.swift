@@ -8,7 +8,7 @@ final class SupportKitTests: XCTestCase {
 
         XCTAssertEqual(config.apiKey, "sk_test_123")
         XCTAssertTrue(config.preferOnDevice)
-        XCTAssertEqual(config.baseURL.absoluteString, "https://api.supportkit.dev")
+        XCTAssertEqual(config.baseURL.absoluteString, "https://api.appsupportsdk.com")
     }
 
     func testConfigurationWithCustomURL() {
