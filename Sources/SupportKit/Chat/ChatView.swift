@@ -3,8 +3,11 @@ import SwiftUI
 /// Main chat interface view
 @available(iOS 17.0, macOS 14.0, *)
 public struct ChatView: View {
+    @Environment(\.dismiss) private var dismiss
     @State private var engine: ChatEngine
     @State private var inputText: String = ""
+    @State private var hasConsented = DataConsentManager.hasConsented
+    @State private var showConsentSheet = false
     @FocusState private var isInputFocused: Bool
 
     init(engine: ChatEngine) {
@@ -43,12 +46,30 @@ public struct ChatView: View {
             // Input bar
             InputBar(
                 text: $inputText,
-                isProcessing: engine.isProcessing,
+                isProcessing: engine.isProcessing || !hasConsented,
                 onSend: sendMessage
             )
             .focused($isInputFocused)
         }
         .background(Color.white)
+        .onAppear {
+            if !hasConsented {
+                showConsentSheet = true
+            }
+        }
+        .sheet(isPresented: $showConsentSheet) {
+            DataConsentView(
+                onAgree: {
+                    DataConsentManager.setConsented()
+                    hasConsented = true
+                    showConsentSheet = false
+                },
+                onCancel: {
+                    showConsentSheet = false
+                    dismiss()
+                }
+            )
+        }
     }
 
     private func sendMessage() {
