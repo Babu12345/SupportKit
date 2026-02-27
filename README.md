@@ -87,4 +87,4 @@ class ViewController: UIViewController {
 
 ## License
 
-MIT License
+Proprietary - All rights reserved
