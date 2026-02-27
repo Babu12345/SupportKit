@@ -33,7 +33,7 @@ struct DataConsentView: View {
                     VStack(spacing: 12) {
                         Image(systemName: "shield.lefthalf.filled")
                             .font(.system(size: 50))
-                            .foregroundStyle(.accent)
+                            .foregroundStyle(Color.accentColor)
 
                         Text("Data Sharing Consent")
                             .font(.title2)
@@ -52,7 +52,7 @@ struct DataConsentView: View {
                     VStack(alignment: .leading, spacing: 12) {
                         Label("What Data Will Be Shared", systemImage: "doc.text")
                             .font(.headline)
-                            .foregroundStyle(.accent)
+                            .foregroundStyle(Color.accentColor)
 
                         Text("When you use support chat, the following information is sent to our AI provider:")
                             .font(.subheadline)
@@ -83,12 +83,12 @@ struct DataConsentView: View {
                     VStack(alignment: .leading, spacing: 12) {
                         Label("Who Receives Your Data", systemImage: "building.2")
                             .font(.headline)
-                            .foregroundStyle(.accent)
+                            .foregroundStyle(Color.accentColor)
 
                         HStack(alignment: .top, spacing: 12) {
                             Image(systemName: "brain.head.profile")
                                 .font(.title2)
-                                .foregroundStyle(.accent)
+                                .foregroundStyle(Color.accentColor)
                                 .frame(width: 32)
 
                             VStack(alignment: .leading, spacing: 4) {
@@ -123,7 +123,7 @@ struct DataConsentView: View {
                     VStack(alignment: .leading, spacing: 12) {
                         Label("How Your Data Is Used", systemImage: "gearshape.2")
                             .font(.headline)
-                            .foregroundStyle(.accent)
+                            .foregroundStyle(Color.accentColor)
 
                         VStack(alignment: .leading, spacing: 8) {
                             BulletPoint(text: "Your data is used solely to generate support responses")
