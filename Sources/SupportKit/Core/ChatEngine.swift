@@ -56,6 +56,12 @@ public final class ChatEngine {
         do {
             let response = try await generateResponse(for: content)
             messages.append(response)
+        } catch APIError.conversationLimitReached {
+            messages.append(Message(
+                role: .assistant,
+                content: "This organization has reached its monthly conversation limit. Please try again later.",
+                isError: true
+            ))
         } catch {
             messages.append(Message(
                 role: .assistant,

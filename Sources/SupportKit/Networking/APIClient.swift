@@ -76,6 +76,11 @@ final class APIClient {
         case 401:
             throw APIError.unauthorized
         case 429:
+            // Check if this is a conversation limit error
+            if let errorResponse = try? JSONDecoder().decode(LimitErrorResponse.self, from: data),
+               errorResponse.limitReached {
+                throw APIError.conversationLimitReached
+            }
             throw APIError.rateLimited
         default:
             throw APIError.serverError(statusCode: httpResponse.statusCode)
@@ -149,6 +154,7 @@ enum APIError: Error, LocalizedError {
     case invalidResponse
     case unauthorized
     case rateLimited
+    case conversationLimitReached
     case serverError(statusCode: Int)
 
     var errorDescription: String? {
@@ -159,8 +165,18 @@ enum APIError: Error, LocalizedError {
             return "Invalid API key"
         case .rateLimited:
             return "Too many requests. Please try again later."
+        case .conversationLimitReached:
+            return "This organization has reached its monthly conversation limit. Please try again later."
         case .serverError(let code):
             return "Server error (code: \(code))"
         }
+    }
+}
+
+private struct LimitErrorResponse: Decodable {
+    let limitReached: Bool
+
+    enum CodingKeys: String, CodingKey {
+        case limitReached = "limit_reached"
     }
 }
