@@ -117,9 +117,9 @@ struct ChatHeader: View {
                 }
 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("AI Support")
+                    Text("Support")
                         .font(.headline)
-                    Text("We typically reply instantly")
+                    Text("Instant AI assistance")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
