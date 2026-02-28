@@ -104,26 +104,52 @@ struct ChatHeader: View {
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 2) {
-                Text("Support")
-                    .font(.headline)
-                Text("We typically reply instantly")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+        VStack(spacing: 0) {
+            HStack(spacing: 12) {
+                // SupportKit logo
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.accentColor)
+                        .frame(width: 40, height: 40)
+                    Image(systemName: "bubble.left.and.bubble.right.fill")
+                        .font(.system(size: 18))
+                        .foregroundStyle(.white)
+                }
+
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Support")
+                        .font(.headline)
+                    Text("We typically reply instantly")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+
+                Spacer()
+
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .font(.title2)
+                        .foregroundStyle(.secondary)
+                }
             }
+            .padding(.horizontal)
+            .padding(.vertical, 14)
 
-            Spacer()
-
-            Button {
-                dismiss()
-            } label: {
-                Image(systemName: "xmark.circle.fill")
-                    .font(.title2)
-                    .foregroundStyle(.secondary)
+            // Powered by link
+            Link(destination: URL(string: "https://www.appsupportsdk.com")!) {
+                HStack(spacing: 4) {
+                    Text("Powered by")
+                        .foregroundStyle(.secondary)
+                    Text("SupportKit")
+                        .foregroundStyle(Color.accentColor)
+                        .fontWeight(.medium)
+                }
+                .font(.caption2)
+                .padding(.bottom, 8)
             }
         }
-        .padding()
         #if canImport(UIKit)
         .background(Color(.systemBackground))
         #else
