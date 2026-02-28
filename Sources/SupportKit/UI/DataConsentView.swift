@@ -86,23 +86,23 @@ struct DataConsentView: View {
                             .foregroundStyle(Color.accentColor)
 
                         HStack(alignment: .top, spacing: 12) {
-                            Image(systemName: "brain.head.profile")
+                            Image(systemName: "cpu")
                                 .font(.title2)
                                 .foregroundStyle(Color.accentColor)
                                 .frame(width: 32)
 
                             VStack(alignment: .leading, spacing: 4) {
-                                Text("Anthropic")
+                                Text("SupportKit AI")
                                     .font(.subheadline)
                                     .fontWeight(.semibold)
 
-                                Text("Anthropic is an AI safety company that develops Claude, an AI assistant focused on being helpful, harmless, and honest.")
+                                Text("SupportKit AI uses advanced language models to understand your questions and provide accurate, helpful support responses.")
                                     .font(.caption)
                                     .foregroundStyle(.secondary)
 
-                                Link(destination: URL(string: "https://www.anthropic.com/privacy")!) {
+                                Link(destination: URL(string: "https://www.appsupportsdk.com/privacy")!) {
                                     HStack(spacing: 4) {
-                                        Text("View Anthropic Privacy Policy")
+                                        Text("View SupportKit Privacy Policy")
                                         Image(systemName: "arrow.up.right")
                                     }
                                     .font(.caption)
@@ -129,7 +129,7 @@ struct DataConsentView: View {
                             BulletPoint(text: "Your data is used solely to generate support responses")
                             BulletPoint(text: "Conversation data is not stored permanently on our servers")
                             BulletPoint(text: "Data is transmitted securely using encryption (HTTPS/TLS)")
-                            BulletPoint(text: "Anthropic processes your data according to their privacy policy")
+                            BulletPoint(text: "AI providers process your data according to our privacy policy")
                         }
                     }
                 }
