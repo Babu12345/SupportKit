@@ -8,8 +8,17 @@ struct MessageBubble: View {
         message.role == .user
     }
 
-    private var markdownContent: AttributedString {
-        (try? AttributedString(markdown: message.content, options: .init(interpretedSyntax: .full))) ?? AttributedString(message.content)
+    private var markdownLines: [AttributedString] {
+        message.content
+            .components(separatedBy: "\n")
+            .filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
+            .map { line in
+                let cleaned = line
+                    .replacingOccurrences(of: #"^#{1,6}\s+"#, with: "", options: .regularExpression)
+                    .replacingOccurrences(of: #"^[-*]\s+"#, with: "\u{2022} ", options: .regularExpression)
+                    .replacingOccurrences(of: #"^\d+\.\s+"#, with: "", options: .regularExpression)
+                return (try? AttributedString(markdown: cleaned, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace))) ?? AttributedString(cleaned)
+            }
     }
 
     var body: some View {
@@ -17,12 +26,25 @@ struct MessageBubble: View {
             if isUser { Spacer(minLength: 60) }
 
             VStack(alignment: isUser ? .trailing : .leading, spacing: 4) {
-                Text(isUser ? AttributedString(message.content) : markdownContent)
+                if isUser {
+                    Text(message.content)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 10)
+                        .background(bubbleBackground)
+                        .foregroundStyle(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 18))
+                } else {
+                    VStack(alignment: .leading, spacing: 6) {
+                        ForEach(Array(markdownLines.enumerated()), id: \.offset) { _, line in
+                            Text(line)
+                        }
+                    }
                     .padding(.horizontal, 16)
                     .padding(.vertical, 10)
                     .background(bubbleBackground)
-                    .foregroundStyle(isUser ? .white : .primary)
+                    .foregroundStyle(.primary)
                     .clipShape(RoundedRectangle(cornerRadius: 18))
+                }
 
                 // Source indicator (debug mode only)
                 #if DEBUG
