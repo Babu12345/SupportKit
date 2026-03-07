@@ -41,7 +41,7 @@ public struct Configuration {
 
 // MARK: - Theme
 
-public struct Theme {
+public struct Theme: Sendable {
     public var primaryColor: String  // Hex color
     public var backgroundColor: String
     public var userBubbleColor: String
@@ -67,11 +67,11 @@ public struct Theme {
 
 // MARK: - Escalation
 
-public struct EscalationConfig {
-    public enum Method {
+public struct EscalationConfig: Sendable {
+    public enum Method: Sendable {
         case email(address: String)
         case url(URL)
-        case callback(() -> Void)
+        case callback(@Sendable () -> Void)
     }
 
     public var method: Method?

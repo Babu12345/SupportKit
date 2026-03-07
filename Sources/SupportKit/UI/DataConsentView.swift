@@ -160,7 +160,9 @@ struct DataConsentView: View {
                 .padding()
                 .background(.ultraThinMaterial)
             }
+            #if !os(macOS)
             .navigationBarTitleDisplayMode(.inline)
+            #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button {

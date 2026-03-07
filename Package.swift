@@ -23,7 +23,10 @@ let package = Package(
             dependencies: [
                 .product(name: "Textual", package: "textual"),
             ],
-            path: "Sources/SupportKit"
+            path: "Sources/SupportKit",
+            swiftSettings: [
+                .swiftLanguageMode(.v5),
+            ]
         ),
         .testTarget(
             name: "SupportKitTests",
