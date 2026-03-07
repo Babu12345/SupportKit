@@ -9,7 +9,7 @@ struct MessageBubble: View {
     }
 
     private var markdownContent: AttributedString {
-        (try? AttributedString(markdown: message.content, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace))) ?? AttributedString(message.content)
+        (try? AttributedString(markdown: message.content, options: .init(interpretedSyntax: .full))) ?? AttributedString(message.content)
     }
 
     var body: some View {
