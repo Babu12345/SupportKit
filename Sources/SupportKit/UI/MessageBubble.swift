@@ -1,5 +1,5 @@
 import SwiftUI
-import Textual
+import MarkdownUI
 
 /// A single message bubble
 struct MessageBubble: View {
@@ -22,7 +22,7 @@ struct MessageBubble: View {
                         .foregroundStyle(.white)
                         .clipShape(RoundedRectangle(cornerRadius: 18))
                 } else {
-                    StructuredText(markdown: message.content)
+                    Markdown(message.content)
                         .font(.body)
                         .padding(.horizontal, 16)
                         .padding(.vertical, 10)

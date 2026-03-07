@@ -5,8 +5,8 @@ import PackageDescription
 let package = Package(
     name: "SupportKit",
     platforms: [
-        .iOS(.v18),
-        .macOS(.v15)
+        .iOS(.v16),
+        .macOS(.v13)
     ],
     products: [
         .library(
@@ -15,13 +15,13 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/Babu12345/textual", from: "0.1.0"),
+        .package(url: "https://github.com/Babu12345/swift-markdown-ui", from: "2.4.0"),
     ],
     targets: [
         .target(
             name: "SupportKit",
             dependencies: [
-                .product(name: "Textual", package: "textual"),
+                .product(name: "MarkdownUI", package: "swift-markdown-ui"),
             ],
             path: "Sources/SupportKit",
             swiftSettings: [
