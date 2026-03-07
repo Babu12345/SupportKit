@@ -14,10 +14,15 @@ let package = Package(
             targets: ["SupportKit"]
         ),
     ],
+    dependencies: [
+        .package(url: "https://github.com/Babu12345/textual", from: "0.1.0"),
+    ],
     targets: [
         .target(
             name: "SupportKit",
-            dependencies: [],
+            dependencies: [
+                .product(name: "Textual", package: "textual"),
+            ],
             path: "Sources/SupportKit"
         ),
         .testTarget(

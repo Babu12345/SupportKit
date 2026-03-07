@@ -1,4 +1,5 @@
 import SwiftUI
+import Textual
 
 /// A single message bubble
 struct MessageBubble: View {
@@ -8,21 +9,27 @@ struct MessageBubble: View {
         message.role == .user
     }
 
-    private var markdownContent: AttributedString {
-        (try? AttributedString(markdown: message.content, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace))) ?? AttributedString(message.content)
-    }
-
     var body: some View {
         HStack {
             if isUser { Spacer(minLength: 60) }
 
             VStack(alignment: isUser ? .trailing : .leading, spacing: 4) {
-                Text(isUser ? AttributedString(message.content) : markdownContent)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 10)
-                    .background(bubbleBackground)
-                    .foregroundStyle(isUser ? .white : .primary)
-                    .clipShape(RoundedRectangle(cornerRadius: 18))
+                if isUser {
+                    Text(message.content)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 10)
+                        .background(bubbleBackground)
+                        .foregroundStyle(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 18))
+                } else {
+                    StructuredText(markdown: message.content)
+                        .font(.body)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 10)
+                        .background(bubbleBackground)
+                        .foregroundStyle(.primary)
+                        .clipShape(RoundedRectangle(cornerRadius: 18))
+                }
 
                 // Source indicator (debug mode only)
                 #if DEBUG
